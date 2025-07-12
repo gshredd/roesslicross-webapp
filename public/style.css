@@ -1,0 +1,164 @@
+/* Hintergrundbild */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-image: url('images/roesslicross-banner.png');
+  background-position: top center;     /* Startet ganz oben */
+  background-repeat: no-repeat;        /* Kein mehrfaches Kacheln */
+  background-size: 100% auto;          /* Volle Breite, Höhe automatisch */
+  background-attachment: fixed;       /* Bild scrollt mit */
+  background-color: #f5f5f5;           /* Fallback-Hintergrundfarbe */
+}
+
+
+/* Container für Inhalt */
+
+/* Äußerer Wrapper steuert Abstand zum oberen Rand */
+.main-wrapper {
+  margin-top: 11vw;
+  display: flex;
+  justify-content: center;
+}
+
+/* Innerer Container – dein transparenter Textbereich */
+.main-content {
+  background: rgba(243, 188, 97, 0.70); /* Weiß mit Transparenz */
+  margin-top: 10vw; /* Abstand oben (~10cm je nach Bildschirm) */
+  padding: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Überschrift */
+header {
+  text-align: center;
+  padding-bottom: 1rem;
+  color: #5a2f18;
+}
+
+/* Inhaltsbereiche */
+section {
+  margin-bottom: 2rem;
+    color: #5a2f18;
+}
+
+/* Formular */
+form input,
+form select,
+form button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #5a2f18;
+}
+
+form button {
+  background: #f3bc61;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #1b5e20;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-top: 50px;
+    padding: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  form input,
+  form select,
+  form button {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  section h2 {
+    font-size: 1.2rem;
+  }
+}
+/* Navigation */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: rgba(243, 188, 97, 0.95);
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #5a2f18;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.menu a:hover {
+  color: #333;
+}
+
+/* Hamburger Button (nur sichtbar auf kleineren Bildschirmen) */
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #5a2f18;
+}
+
+/* Versteckter Toggle */
+#menu-toggle {
+  display: none;
+}
+
+/* Responsive für kleine Bildschirme */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  #menu-toggle:checked + .menu-icon + .menu {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+    text-align: right;
+  }
+}

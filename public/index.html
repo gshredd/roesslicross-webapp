@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rösslicross 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">☰</label>
+
+  <div class="menu">
+    <a href="/">Start</a>
+    <a href="/fotos">Fotos</a>
+    <a href="/rangliste">Rangliste</a>
+  </div>
+</nav>
+
+
+<div class="main-wrapper">
+  <div class="main-content">
+    <header>
+      <h1>ANMELDUNG INT. RÖSSLICROSS 2025</h1>
+      <p>Bizli meh als diis standard Crossrenne</p>
+    </header>
+
+    <section id="infos">
+      <h2>📅 Informationen</h2>
+      <p><strong>Datum:</strong> 25. Oktober 2025</p>
+      <p><strong>Ort:</strong> Casa Frisegg aka Neuhof 1, 8489 Wildberg</p>
+      <p><strong>Kategorien:</strong> Girls · Boys · Savage Tandems</p>
+      <p><strong>Rules:</strong> Yess</p>
+    </section>
+
+    <section id="anmeldung">
+      <h2>📝 Anmeldung</h2>
+      <form action="/anmelden" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">E-Mail:</label><br>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="kategorie">Kategorie:</label><br>
+        <select id="kategorie" name="kategorie">
+          <option>Girls</option>
+          <option>Boys</option>
+          <option>Savage Tandems</option>
+        </select><br><br>
+
+        <button type="submit">Jetzt anmelden</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Rösslicross – <a href="mailto:info@roesslicross.ch">Kontakt</a></p>
+    </footer>
+  </div>
+
+</body>
+</html>
