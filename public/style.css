@@ -263,4 +263,50 @@ section{
     backdrop-filter: none;
   }
 }
+/* === Mobile-Optimierung === */
+@media (max-width: 768px) {
+  body {
+    /* Hintergrund fixiert → Text scrollt drüber */
+    background-attachment: fixed;
+    background-size: cover;           /* Hintergrund füllt den ganzen Screen */
+    background-repeat: no-repeat;     /* kein Kacheln */
+    background-position: center top;  /* zentriert */
+  }
+
+  .main-content {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(243,188,97,0.85);
+  }
+
+  form input,
+  form select,
+  form button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    color: #5a2f18;
+  }
+
+  .consent input {
+    margin-right: 0.5rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .consent label {
+    line-height: 1.4;
+    flex: 1;
+  }
+}
+
 
