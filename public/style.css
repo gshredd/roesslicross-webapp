@@ -1,36 +1,29 @@
-/* Hintergrundbild */
+/* ===================== */
+/* Hintergrund / Global  */
+/* ===================== */
 body {
   margin: 0;
   font-family: sans-serif;
   background-image: url('images/roesslicross-banner.png');
-  background-position: top center;     /* Startet ganz oben */
-  background-repeat: no-repeat;        /* Kein mehrfaches Kacheln */
-  background-size: 100% auto;          /* Volle Breite, Höhe automatisch */
-  background-attachment: fixed;       /* Bild scrollt mit */
-  background-color: #f5f5f5;           /* Fallback-Hintergrundfarbe */
+  background-position: top center;   /* Start ganz oben */
+  background-repeat: no-repeat;      /* kein Kacheln auf Desktop */
+  background-size: 100% auto;        /* volle Breite, Höhe automatisch */
+  background-attachment: fixed;      /* Parallax-Feeling auf Desktop */
+  background-color: #f5f5f5;         /* Fallback-Farbe */
 }
 
-/* Mobile (bis 900px Breite) */
-@media (max-width: 900px) {
-  body {
-    background-size: 100% auto;
-    background-repeat: repeat-y;    /* 🔑 mehrfach untereinander */
-  }
-}
-
-/* Container für Inhalt */
-
-/* Äußerer Wrapper steuert Abstand zum oberen Rand */
+/* ===================== */
+/* Layout Content        */
+/* ===================== */
 .main-wrapper {
-  margin-top: 11vw;
+  margin-top: 11vw;                  /* Abstand von oben (relativ zur Breite) */
   display: flex;
   justify-content: center;
 }
 
-/* Innerer Container – dein transparenter Textbereich */
 .main-content {
-  background: rgba(243, 188, 97, 0.70); /* Weiß mit Transparenz */
-  margin-top: 10vw; /* Abstand oben (~10cm je nach Bildschirm) */
+  background: rgba(243, 188, 97, 0.70);
+  margin-top: 10vw;
   padding: 2rem;
   max-width: 800px;
   margin-left: auto;
@@ -39,20 +32,23 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Überschrift */
+/* ===================== */
+/* Typo / Sections       */
+/* ===================== */
 header {
   text-align: center;
   padding-bottom: 1rem;
   color: #5a2f18;
 }
 
-/* Inhaltsbereiche */
 section {
   margin-bottom: 2rem;
-    color: #5a2f18;
+  color: #5a2f18;
 }
 
-/* Formular */
+/* ===================== */
+/* Formular              */
+/* ===================== */
 form input,
 form select,
 form button {
@@ -68,7 +64,7 @@ form button {
 
 form button {
   background: #f3bc61;
-  color: white;
+  color: #fff;
   border: none;
   cursor: pointer;
   font-weight: bold;
@@ -79,7 +75,30 @@ form button:hover {
   background: #1b5e20;
 }
 
-/* Footer */
+/* Checkbox + Text robust nebeneinander, Text bricht neben der Box */
+.consent {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr; /* Box, dann Text */
+  column-gap: .6rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+.consent input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: .15rem 0 0 0;
+  accent-color: #5a2f18;  /* Markenfarbe */
+}
+.consent label {
+  margin: 0;
+  line-height: 1.4;
+  color: #111111;
+  font-size: .95rem;
+}
+
+/* ===================== */
+/* Footer                */
+/* ===================== */
 footer {
   text-align: center;
   font-size: 0.9rem;
@@ -87,37 +106,20 @@ footer {
   margin-top: 2rem;
 }
 
-@media (max-width: 600px) {
-  .main-content {
-    margin-top: 50px;
-    padding: 1rem;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  form input,
-  form select,
-  form button {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-
-  header h1 {
-    font-size: 1.5rem;
-  }
-
-  section h2 {
-    font-size: 1.2rem;
-  }
+/* ===================== */
+/* Navigation            */
+/* ===================== */
+:root {
+  --nav-h: 56px;                          /* ungefähre Navbar-Höhe */
+  --nav-bg-solid: rgba(255,234,194,0.98); /* Desktop-Hintergrund nach Scroll */
 }
-/* === Navigation (konsolidiert & mobil-optimiert) === */
 
 /* Basis */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: transparent;   /* kein Balken, wenn Menü zu */
+  background: transparent;   /* oben transparent */
   padding: 1rem;
   box-shadow: none;
 }
@@ -150,19 +152,74 @@ footer {
 }
 .menu a:hover { color: #333; }
 
-/* --- Mobile --- */
+/* Desktop: Navbar wird nach Scroll opak */
+body.nav-scrolled .navbar {
+  background: var(--nav-bg-solid);
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  backdrop-filter: blur(6px);
+}
+
+/* Anker-Offset, damit #infos/#faq etc. nicht unter der Navbar landen */
+section {
+  scroll-margin-top: calc(var(--nav-h) + 12px);
+}
+
+/* Optionales Seiten-Overlay, wenn Menü offen (nur Safari/Chromium mit :has) */
+@supports(selector(.navbar:has(#menu-toggle:checked))) {
+  .navbar::after {
+    content:"";
+    position: fixed; inset: 0;
+    background: transparent;
+    pointer-events: none;
+    transition: background .2s ease;
+  }
+  .navbar:has(#menu-toggle:checked)::after {
+    background: rgba(0,0,0,.35);
+  }
+}
+
+/* ===================== */
+/* Breakpoints           */
+/* ===================== */
+@media (max-width: 600px) {
+  .main-content {
+    margin-top: 50px;
+    padding: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  form input,
+  form select,
+  form button {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  header h1 { font-size: 1.5rem; }
+  section h2 { font-size: 1.2rem; }
+}
+
+/* --- Mobile Navigation & Mobile Styles (≤768px) --- */
 @media (max-width: 768px) {
+  /* Mobile: Navbar bleibt auch nach Scroll transparent */
+  body.nav-scrolled .navbar {
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
   .navbar {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     padding: 1rem;
-    background: transparent;  /* wirklich transparent */
+    background: transparent;
   }
 
   .menu-icon { display: block; text-align: right; }
 
-  /* Menü standardmäßig zu (kein Balken) */
+  /* Menü zu (kein Balken) */
   .menu {
     display: flex;
     flex-direction: column;
@@ -173,152 +230,30 @@ footer {
     opacity: 0;
     overflow: hidden;
     padding: 0;
-    background: transparent;  /* zu = kein Hintergrund */
+    background: transparent;
     box-shadow: none;
     transition: max-height .35s ease, opacity .35s ease, background .2s ease, padding .2s ease;
   }
 
-  /* Menü offen: milchiger Hintergrund + weiches Aufklappen */
+  /* Menü offen: milchiger Hintergrund */
   #menu-toggle:checked + .menu-icon + .menu {
     max-height: 320px;
     opacity: 1;
     padding: .75rem 0;
-    background: rgba(255,234,194,.95);   /* milchig, gut lesbar */
+    background: rgba(255,234,194,.95);
     box-shadow: 0 6px 18px rgba(0,0,0,.18);
     border-radius: 10px;
   }
-}
 
-/* Optionales Seiten-Overlay, wenn Menü offen (Safari unterstützt :has) */
-@supports(selector(.navbar:has(#menu-toggle:checked))) {
-  .navbar::after{
-    content:"";
-    position: fixed; inset: 0;
-    background: transparent;
-    pointer-events: none;
-    transition: background .2s ease;
-  }
-  .navbar:has(#menu-toggle:checked)::after{
-    background: rgba(0,0,0,.35); /* Seite leicht abdunkeln */
-  }
-}
-
-/* Checkbox + Text robust nebeneinander, Text bricht in 2. Spalte */
-.consent{
-  display: grid;
-  grid-template-columns: 1.25rem 1fr; /* Box, dann Text */
-  column-gap: .6rem;
-  align-items: start;
-  margin-top: 1rem;
-}
-
-/* Touch-Ziel etwas größer, optisch sauber ausgerichtet */
-.consent input[type="checkbox"]{
-  width: 1.1rem;
-  height: 1.1rem;
-  margin: .15rem 0 0 0;
-  accent-color: #5a2f18;  /* optional: Markenfarbe */
-}
-
-.consent label{
-  margin: 0;
-  line-height: 1.4;
-  color: #111111;
-  font-size: .95rem;
-}
-
-:root{
-  --nav-h: 56px;                          /* ungefähre Navbar-Höhe */
-  --nav-bg-solid: rgba(255,234,194,0.98); /* Hintergrund beim Scrollen (Desktop) */
-}
-
-/* Navbar: standardmäßig transparent */
-.navbar{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: transparent;      /* << wichtig: KEIN Hintergrund oben */
-  box-shadow: none;
-  backdrop-filter: none;
-  transition: background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
-}
-
-/* Erst NACH Scrollen: Hintergrund + Schatten (nur Desktop, s.u. mobile override) */
-body.nav-scrolled .navbar{
-  background: var(--nav-bg-solid);
-  box-shadow: 0 2px 12px rgba(0,0,0,.15);
-  backdrop-filter: blur(6px);
-}
-
-/* Anker-Offset, damit #infos/#faq etc. nicht unter der Navbar landen */
-section{
-  scroll-margin-top: calc(var(--nav-h) + 12px);
-}
-
-/* 🔒 Mobile: auch nach Scrollen transparent lassen */
-@media (max-width: 768px){
-  body.nav-scrolled .navbar{
-    background: transparent;
-    box-shadow: none;
-    backdrop-filter: none;
-  }
-}
-/* === Mobile-Optimierung === */
-@media (max-width: 768px) {
+  /* Mobile: Hintergrund – GANZES Bild + Wiederholung nach unten, scrollt mit */
   body {
-    /* Hintergrund fixiert → Text scrollt drüber */
-    background-attachment: fixed;
-    background-size: cover;           /* Hintergrund füllt den ganzen Screen */
-    background-repeat: no-repeat;     /* kein Kacheln */
-    background-position: center top;  /* zentriert */
+    background-attachment: fixed;     /* iOS-freundlich */
+    background-position: top center;
+    background-size: contain;          /* ganzes Bild sichtbar */
+    background-repeat: repeat-y;       /* vertikal kacheln */
   }
 
-  .main-content {
-    margin: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-    background: rgba(243,188,97,0.85);
-  }
-
-  form input,
-  form select,
-  form button {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    font-size: 1rem;
-    padding: 0.6rem;
-  }
-
-  .consent {
-    display: flex;
-    align-items: flex-start;
-    font-size: 0.9rem;
-    color: #5a2f18;
-  }
-
-  .consent input {
-    margin-right: 0.5rem;
-    margin-top: 0.2rem;
-    flex-shrink: 0;
-  }
-
-  .consent label {
-    line-height: 1.4;
-    flex: 1;
-  }
-}
-
-/* === Mobile-Only Hintergrund so wie am Anfang: ganzes Bild + Wiederholung nach unten === */
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;   /* mit dem Inhalt mitscrollen */
-    background-position: top center; /* oben beginnen, zentriert */
-    background-size: contain;        /* GANZES Bild sichtbar */
-    background-repeat: repeat-y;     /* vertikal kacheln, falls nötig */
-  }
-
-  /* Mobile-Feinschliff fürs Formular (falls noch nicht drin) */
+  /* Formular auf Mobile angenehmer schmal/zentriert */
   .main-content {
     margin: 1rem;
     padding: 1rem;
@@ -330,24 +265,11 @@ section{
   form input,
   form select,
   form button {
-    width: 100%;
-    max-width: 480px;      /* wirkt eleganter schmaler */
+    max-width: 480px;       /* schmaler als Bildschirmbreite */
     margin-left: auto;
     margin-right: auto;
     display: block;
-    min-height: 44px;      /* gute Touch-Ziele */
+    min-height: 44px;       /* gute Touch-Ziele */
     box-sizing: border-box;
   }
-
-  /* Checkbox-Zeile stabil nebeneinander */
-  .consent{
-    display: grid;
-    grid-template-columns: 1.25rem 1fr;
-    column-gap: .6rem;
-    align-items: start;
-    margin-top: .5rem;
-  }
-  .consent input{ width:1.1rem; height:1.1rem; margin-top:.15rem; }
-  .consent label{ margin:0; line-height:1.4; }
 }
-
