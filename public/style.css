@@ -247,7 +247,7 @@ section {
 
   /* Mobile: Hintergrund – GANZES Bild + Wiederholung nach unten, scrollt mit */
   body {
-    background-attachment: fixed;     /* iOS-freundlich */
+    background-attachment: scroll;     /* iOS-freundlich */
     background-position: top center;
     background-size: contain;          /* ganzes Bild sichtbar */
     background-repeat: repeat-y;       /* vertikal kacheln */
