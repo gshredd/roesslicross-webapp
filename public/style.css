@@ -273,3 +273,37 @@ section {
     box-sizing: border-box;
   }
 }
+/* Galerie (Fotos) */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: .75rem;
+  margin-top: .75rem;
+}
+.gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+
+/* Rangliste */
+.results {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: .75rem;
+  background: rgba(255,255,255,.6);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.results th, .results td {
+  padding: .6rem .75rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  color: #5a2f18;
+}
+.results thead th {
+  background: rgba(243,188,97,.35);
+  text-align: left;
+}
+.results tr:last-child td { border-bottom: 0; }

@@ -69,14 +69,14 @@
     <section id="faq">
       <h2>❓ FAQ</h2>
       <p><strong>Gits das Jahr endlich e Rangliste?</strong> Vermuetlich kriegemer das in dem Jahr tatsächliich ane!</p>
-      <p><strong>Ich han letzt Jahr gwunne, kriege ich e Spezialbehandlig?</strong> Vorjahressieger:inne dörfed vori iistah – mit spezieller Iilaufzeremonie.</p>
+      <p><strong>Ich han letzt Jahr gwunne, kriege ich e Spezialbehandlig?</strong> Vorjahressieger:inne dörfed vorne iistah – mit spezieller Iilaufzeremonie.</p>
       <p><strong>Chume vo wiit her, kei Ahnig woni schlafe söll?</strong> Eifach fröge – mer hend div. Unterkunftsmöglichkeite vor Ort und ide Umgäbig.</p>
-      <p><strong>Was wenns regnet?</strong> Denn wird’s erst richtig guet. Mer lueged mit Hochdruckreiniger & Dusche im Ziel.</p>
+      <p><strong>Was wenns regnet?</strong> Denn wird’s erst richtig guet. Mer lueged, ob mer sogar Hochdruckreiniger & Dusche im Ziel hiikriege würed.</p>
       <p><strong>Ich bin Profi – derf ich mitfahre?</strong> Usnahmswiis.</p>
       <p><strong>Chan ich mich druf vorbereite?</strong> Hafer & Chraftfuetter zum Zmorge, drü Rüebli zum Zmittag.</p>
-      <p><strong>Chan ich epper mitbringe?</strong> Gib kurz Bescheid via WhatsApp (079 557 27 44) – mir finded es Plätzli meh :)</p>
-      <p><strong>Chan ich eppis mitbringe?</strong> Es Velo, gueti Luune, chräftigi Bei – und für Legende-Status: en Dessert.</p>
-      <p><strong>Empfang ide Casa Friesegg?</strong> Swisscom: volle 5G. Anderi Netze: eher nüt → nimm Bargeld/Funkgerät; mir hend en mobilen WLAN-Router.</p>
+      <p><strong>Chan ich epper mitbringe?</strong> Gib churz Bescheid via WhatsApp (079 557 27 44) – mir finded es Plätzli meh :)</p>
+      <p><strong>Chan ich eppis mitbringe?</strong> Es Velo, gueti Luune, chräftigi Bei und wenn dich als absoluti Legende verewige wotsch: en Dessert.</p>
+      <p><strong>Empfang ide Casa Friesegg?</strong> Mit Swisscom Netz hesch volle 5G Empfang. Falls es anders Netz nutzisch eher gar kei Empfang. In dem Fall nimmsch also besser chli Bargeld und es Funkgrät mit. Ps. mir hend en mobile WLAN Router für s gröbste.</p>
       <p><strong>Chani mitem Auto cho?</strong> Parkplätz sind unterhalb vom Hof signalisiert.</p>
       <p><strong>Wie chume ich da wieder weg?</strong> Wenn nümm weisch wie heicho → bim OK melde; mir bringed dich zum nächschte Bahnhof.</p>
       <p><strong>Gits gueti Musig?</strong> Nei.</p>
@@ -92,11 +92,11 @@
         <input type="text" id="name" name="name" placeholder="Schimmel" required><br>
 
         <label for="email">E-Mail:</label><br>
-        <input type="email" id="email" name="email" placeholder="thehorseman@roesslicross.ch" autocomplete="email" required><br>
+        <input type="email" id="email" name="email" placeholder="sexy_horseboiii94@netlog.ch" autocomplete="email" required><br>
 
         <label for="phone">Handynummere:</label><br>
         <input type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel"
-               placeholder="+41 79 123 45 67" required/><br>
+               placeholder="+41 79 123 s Rössli macht hüüü" required/><br>
 
         <label for="kategorie">Kategorie:</label><br>
         <select id="kategorie" name="kategorie">
@@ -153,6 +153,55 @@
   })();
 </script>
 
+<script>
+  (async () => {
+    // Fotos
+    const fotosSec = document.querySelector('#fotos');
+    if (fotosSec) {
+      try {
+        const res = await fetch('/api/fotos');
+        const files = await res.json();
+        if (!files || files.length === 0) {
+          fotosSec.insertAdjacentHTML('beforeend', '<p>📷 Noch keine Fotos online.</p>');
+        } else {
+          const grid = document.createElement('div');
+          grid.className = 'gallery';
+          files.forEach(f => {
+            const img = document.createElement('img');
+            img.src = '/fotos/' + encodeURIComponent(f);
+            img.alt = 'Rösslicross Foto';
+            grid.appendChild(img);
+          });
+          fotosSec.appendChild(grid);
+        }
+      } catch { fotosSec.insertAdjacentHTML('beforeend', '<p>📷 Noch keine Fotos online.</p>'); }
+    }
+
+    // Rangliste
+    const rSec = document.querySelector('#rangliste');
+    if (rSec) {
+      try {
+        const res = await fetch('/api/rangliste');
+        const rows = await res.json();
+        if (!rows || rows.length === 0) {
+          rSec.insertAdjacentHTML('beforeend', '<p>🏁 Noch keine Rangliste veröffentlicht.</p>');
+        } else {
+          const table = document.createElement('table');
+          table.className = 'results';
+          table.innerHTML = '<thead><tr><th>Pos</th><th>Name</th><th>Kategorie</th><th>Zeit</th></tr></thead>';
+          const tb = document.createElement('tbody');
+          rows.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${r.position ?? ''}</td><td>${r.name ?? ''}</td><td>${r.category ?? ''}</td><td>${r.time ?? ''}</td>`;
+            tb.appendChild(tr);
+          });
+          table.appendChild(tb);
+          rSec.appendChild(table);
+        }
+      } catch { rSec.insertAdjacentHTML('beforeend', '<p>🏁 Noch keine Rangliste veröffentlicht.</p>'); }
+    }
+  })();
+</script>
 
 </body>
 </html>
