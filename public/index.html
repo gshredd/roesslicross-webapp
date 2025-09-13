@@ -111,7 +111,7 @@
           <input type="checkbox" id="consent" name="consent" required>
           <label for="consent">
             Ich bestätige, dass ich auf eigene Verantwortung am Rösslicross teilnehme
-            und die Veranstalter:innen jede Haftung ablehnen.
+            und die VeranstalterInnen jede Haftung ablehnen.
           </label>
         </div><br>
 
@@ -199,6 +199,19 @@
           rSec.appendChild(table);
         }
       } catch { rSec.insertAdjacentHTML('beforeend', '<p>🏁 Noch keine Rangliste veröffentlicht.</p>'); }
+    }
+  })();
+</script>
+
+//Erfolgsmeldung
+<script>
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("thanks") === "1") {
+      const msg = document.createElement("div");
+      msg.className = "success-message";
+      msg.innerHTML = "✅ Deine Anmeldung war erfolgreich! Wir freuen uns auf dich 🎉";
+      document.body.prepend(msg);
     }
   })();
 </script>

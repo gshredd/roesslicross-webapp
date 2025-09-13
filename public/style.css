@@ -307,3 +307,16 @@ section {
   text-align: left;
 }
 .results tr:last-child td { border-bottom: 0; }
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 1em;
+  margin: 1em auto;
+  max-width: 600px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
+
