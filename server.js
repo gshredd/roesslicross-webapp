@@ -107,6 +107,19 @@ app.get('/api/rangliste', async (_req, res) => {
   }
 });
 
+//Anmeldungen abfragen
+app.get('/admin/anmeldungen', async (req, res) => {
+  try {
+    const { rows } = await db.query(
+        'SELECT prename, name, email, phone, category, consent, created_at FROM registrations ORDER BY created_at DESC'
+    );
+    res.json(rows); // fürs Erste einfach als JSON
+  } catch (err) {
+    console.error('❌ Fehler beim Laden der Anmeldungen:', err);
+    res.status(500).send('Fehler beim Laden der Anmeldungen.');
+  }
+});
+
 // Fotos aus /public/fotos auflisten (JSON) – leer -> []
 app.get('/api/fotos', (_req, res) => {
   const dir = path.join(__dirname, 'public', 'fotos');
